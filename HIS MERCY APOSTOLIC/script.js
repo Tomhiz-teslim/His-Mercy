@@ -18,8 +18,8 @@ window.addEventListener("scroll", changeBackColor);
 
 // Highlight the active link based on the current page
 const navLinks = document.querySelectorAll('nav ul li a');
-const currentPage = window.location.pathname.split('/').pop().split('?')[0].split('#')[0];
-const aboutPages = ['History.html', 'miss-AND-vis.html', 'belief.html', 'structure.html'];
+const currentPage = window.location.pathname.toLowerCase().split('/').pop().split('?')[0].split('#')[0];
+const aboutPages = ['history.html', 'miss-and-vis.html', 'belief.html', 'structure.html'];
 
 // Debug: log the current page
 console.log('Current Page:', currentPage);
@@ -29,7 +29,7 @@ navLinks.forEach(link => link.classList.remove('active'));
 
 // Loop through the navigation links and match the href with the current page
 navLinks.forEach(link => {
-    const linkPage = link.href.split('/').pop().split('?')[0].split('#')[0];
+    const linkPage = link.href.toLowerCase().split('/').pop().split('?')[0].split('#')[0];
 
     // Debug: log the link page
     console.log('Link Page:', linkPage);
@@ -37,7 +37,7 @@ navLinks.forEach(link => {
     if (aboutPages.includes(currentPage)) {
         // Highlight "ABOUT US" if on an "About Us" page
         const aboutLink = document.querySelector('nav ul li a#about');
-        aboutLink.classList.add('active');
+        if (aboutLink) aboutLink.classList.add('active');
 
         // Highlight the specific dropdown link
         if (linkPage === currentPage) {
@@ -59,7 +59,7 @@ function toggleNavBar() {
 }
 
 openBtn.addEventListener('click', toggleNavBar);
-closeBtn?.addEventListener('click', toggleNavBar); // Optional chaining in case 'closeBtn' does not exist
+if (closeBtn) closeBtn.addEventListener('click', toggleNavBar); // Check if 'closeBtn' exists before adding event listener
 
 // Dropdown Menu Toggle for "ABOUT US"
 const aboutLink = document.getElementById('about');
@@ -77,6 +77,6 @@ function closeDropdown() {
 }
 
 // Add event listeners to toggle and close the dropdown
-aboutLink.addEventListener('click', toggleDropdown);
-dropdownIcon.addEventListener('click', toggleDropdown);
-closeButton.addEventListener('click', closeDropdown);
+if (aboutLink) aboutLink.addEventListener('click', toggleDropdown);
+if (dropdownIcon) dropdownIcon.addEventListener('click', toggleDropdown);
+if (closeButton) closeButton.addEventListener('click', closeDropdown);
